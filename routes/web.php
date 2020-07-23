@@ -18,7 +18,8 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+Route::get('/home', 'HomeController@index');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('{any?}', 'HomeController@index')->name('home')->where('any', '.*');
 
 Route::get('post', 'PostController@index');

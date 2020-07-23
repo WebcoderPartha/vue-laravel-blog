@@ -16,7 +16,8 @@
 </head>
 <body class="hold-transition sidebar-mini">
 <!-- Site wrapper -->
-<div class="wrapper" id="app">
+<div id="app">
+<div class="wrapper">
     <nav class="main-header navbar navbar-expand navbar-white navbar-light pt-5 mb-4">
     </nav>
 
@@ -40,21 +41,12 @@
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-item has-treeview">
-                        <a href="#" class="nav-link">
+                        <router-link to="/home"  class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 Dashboard
-                                <i class="right fas fa-angle-left"></i>
                             </p>
-                        </a>
-                        <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="../../index.html" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Dashboard v1</p>
-                                </a>
-                            </li>
-                        </ul>
+                        </router-link>
                     </li>
                     <li class="nav-item has-treeview">
                         <a href="#" class="nav-link">
@@ -66,10 +58,16 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="../../index.html" class="nav-link">
+                                <router-link to="/category-list" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>All Category</p>
-                                </a>
+                                    <p>Category List</p>
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
+                                <router-link to="" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>New Category</p>
+                                </router-link>
                             </li>
                         </ul>
                     </li>
@@ -83,10 +81,10 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="../../index.html" class="nav-link">
+                                <router-link to="/post" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>All Post</p>
-                                </a>
+                                </router-link>
                             </li>
                         </ul>
                     </li>
@@ -100,34 +98,7 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Main content -->
-        <section class="content">
-
-            <!-- Default box -->
-            <div class="card">
-                <div class="card-header">
-                    <h3 class="card-title">Title</h3>
-
-                    <div class="card-tools">
-                        <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                            <i class="fas fa-minus"></i></button>
-                        <button type="button" class="btn btn-tool" data-card-widget="remove" data-toggle="tooltip" title="Remove">
-                            <i class="fas fa-times"></i></button>
-                    </div>
-                </div>
-                <div class="card-body">
-                    Start creating your amazing application!
-                </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                    Footer
-                </div>
-                <!-- /.card-footer-->
-            </div>
-            <!-- /.card -->
-            <example-component></example-component>
-
-
-        </section>
+        <admin-master></admin-master>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
@@ -147,6 +118,6 @@
     <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
+</div>
 </body>
 </html>
