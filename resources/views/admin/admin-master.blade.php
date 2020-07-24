@@ -63,12 +63,6 @@
                                     <p>Category List</p>
                                 </router-link>
                             </li>
-                            <li class="nav-item">
-                                <router-link to="" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>New Category</p>
-                                </router-link>
-                            </li>
                         </ul>
                     </li>
                     <li class="nav-item has-treeview">

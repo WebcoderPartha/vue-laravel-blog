@@ -8,7 +8,7 @@
                             <div class="card-header">
                                 <h3 class="card-title">DataTable with default features</h3>
                                 <div class="card-tools">
-                                    <button class="btn btn-primary">Add Category</button >
+                                    <button class="btn btn-primary"><router-link to="/add-category">Add Category</router-link></button >
                                 </div>
                             </div>
                             <!-- /.card-header -->
@@ -57,4 +57,10 @@
 </script>
 
 <style scoped>
+    .card-tools .btn a {
+        color:#fff;
+    }
+    .card-tools .btn a:hover{
+        text-decoration: none
+    }
 </style>

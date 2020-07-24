@@ -3,6 +3,7 @@ import NotFoundPage from "./components/404";
 import AdminHome from "./components/admin/AdminHome";
 import ExampleComponent from "./components/ExampleComponent";
 import CategoryList from "./components/admin/category/List";
+import AddCategory from "./components/admin/category/New";
 
 
 const  routes = [
@@ -22,13 +23,19 @@ const  routes = [
 
     },
     {
+        path        :  '/add-category',
+        component   : AddCategory,
+        name        : 'add_category'
+
+    },
+    {
         path        : '*',
         component   : NotFoundPage,
     }
 ];
 
 const router = new VueRouter({
-    routes, // short for `routes: routes`
+    routes, // short for `routes: routes`c
     mode: 'history'
 });
 

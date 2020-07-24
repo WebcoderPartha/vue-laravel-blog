@@ -12,9 +12,16 @@ require('admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min');
 
 window.Vue = require('vue');
 
+
+
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('admin-master', require('./components/admin/AdminMaster').default);
 Vue.use(VueRouter);
+
+import { Form, HasError, AlertError } from 'vform';
+Vue.component(HasError.name, HasError);
+Vue.component(AlertError.name, AlertError);
+window.Form = Form;
 
 const app = new Vue({
     el: '#app',
