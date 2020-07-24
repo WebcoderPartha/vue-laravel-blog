@@ -53,6 +53,10 @@
                 .then(response => {
                     console.log(response.data);
                     this.$router.push('/category-list');
+                    Toast.fire({
+                        icon: 'success',
+                        title: 'Catetory added successfully'
+                    });
                 }).catch(() => {
 
                 });
