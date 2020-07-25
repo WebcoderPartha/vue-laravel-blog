@@ -18,16 +18,20 @@
                                     <tr>
                                         <th>SL</th>
                                         <th>Category Name</th>
+                                        <th>Created At</th>
+                                        <th>Updated At</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Bangladesh</td>
+                                    <tr v-for="(category,index) in getAllCategory" :key="'category' + index">
+                                        <td>{{ index+1 }}</td>
+                                        <td>{{ category.cat_name }}</td>
+                                        <td>{{ category.created_at | timeFormat }}</td>
+                                        <td>{{ category.updated_at | timeFormat}}</td>
                                         <td>
-                                            <a href="" class="btn btn-success"><i class="fa fa-edit"></i></a>
-                                            <a href="" class="btn btn-danger"><i class="fa fa-trash-alt"></i></a>
+                                            <router-link :to="`/edit-category/${category.id}`" class="btn btn-success"><i class="fa fa-edit"></i></router-link>
+                                            <button @click.prevent="deleteCategory(category.id)" class="btn btn-danger"><i class="fa fa-trash-alt"></i></button>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -35,6 +39,8 @@
                                     <tr>
                                         <th>SL</th>
                                         <th>Category Name</th>
+                                        <th>Created At</th>
+                                        <th>Updated At</th>
                                         <th>Action</th>
                                     </tr>
                                     </tfoot>
@@ -52,7 +58,28 @@
 
 <script>
     export default {
-        name: "List"
+        name: "List",
+        mounted() {
+            this.$store.dispatch('allCategory');
+        },
+        computed:{
+            getAllCategory(){
+                // return this.$store.getters.getCategory
+                return this.$store.getters.getCategory
+            }
+        },
+        methods:{
+            deleteCategory(id){
+                axios.get('/api/category/delete/'+id)
+                    .then(() => {
+                        this.$store.dispatch('allCategory');
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Catetory added successfully'
+                        });
+                })
+            }
+        }
     }
 </script>
 

@@ -1,4 +1,13 @@
+require('./bootstrap');
+require('admin-lte/dist/js/adminlte.min');
+require('admin-lte/dist/js/demo');
+require('admin-lte/plugins/datatables/jquery.dataTables.min');
+require('admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min');
+require('admin-lte/plugins/datatables-responsive/js/dataTables.responsive.min');
+require('admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min');
+
 import VueRouter from "vue-router";
+import Vuex from 'vuex'
 import router from "./routes";
 import AdminMaster from "./components/admin/AdminMaster";
 
@@ -20,30 +29,31 @@ const Toast = Swal.mixin({
 
 window.Toast = Toast
 
-require('./bootstrap');
-require('admin-lte/dist/js/adminlte.min');
-require('admin-lte/dist/js/demo');
-require('admin-lte/plugins/datatables/jquery.dataTables.min');
-require('admin-lte/plugins/datatables-bs4/js/dataTables.bootstrap4.min');
-require('admin-lte/plugins/datatables-responsive/js/dataTables.responsive.min');
-require('admin-lte/plugins/datatables-responsive/js/responsive.bootstrap4.min');
-
 window.Vue = require('vue');
-
-// Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('admin-master', require('./components/admin/AdminMaster').default);
 Vue.use(VueRouter);
+Vue.use(Vuex)
 
+// Support for vFrom for validation
 import { Form, HasError, AlertError } from 'vform';
 Vue.component(HasError.name, HasError);
 Vue.component(AlertError.name, AlertError);
 window.Form = Form;
 
+// Support Vuex for Data fetch from database
+import storeData from './store/index'
+const store = new Vuex.Store(
+    storeData
+);
+
+// Support Moment JS Time Format
+import filter from './filter';
 
 const app = new Vue({
     el: '#app',
     router,
     components: {
         AdminMaster
-    }
+    },
+    store
 });

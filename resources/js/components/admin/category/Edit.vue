@@ -1,18 +1,19 @@
 <template>
+    <div>
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-6 m-auto">
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Add Category</h3>
+                                <h3 class="card-title">Edit Category</h3>
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form role="form" @submit.prevent="AddCategory">
+                            <form role="form" @submit.prevent="UpdateCategory">
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="cat_name">Category Name</label>
+                                        <label for="cat_name">Edit Category Name</label>
                                         <input type="text"
                                                class="form-control"
                                                id="cat_name"
@@ -27,7 +28,7 @@
                                 <!-- /.card-body -->
 
                                 <div class="card-footer">
-                                    <button :disabled="form.busy" type="submit" class="btn btn-primary">Create</button>
+                                    <button :disabled="form.busy" type="submit" class="btn btn-primary">Update Category</button>
                                 </div>
                             </form>
                         </div>
@@ -35,11 +36,12 @@
                 </div>
             </div>
         </div>
+    </div>
 </template>
 
 <script>
     export default {
-        name: "New",
+        name: "Edit",
         data(){
             return {
                 form : new Form({
@@ -47,17 +49,23 @@
                 })
             }
         },
+        mounted() {
+          axios.get(`/api/edit-category/${this.$route.params.categoryid}`)
+              .then(response => {
+                  this.form.fill(response.data.category)
+              })
+        },
         methods: {
-            AddCategory(){
-                this.form.post('/add-category')
-                .then(response => {
-                    console.log(response.data);
-                    this.$router.push('/category-list');
-                    Toast.fire({
-                        icon: 'success',
-                        title: this.form.cat_name + ' category added successfully'
-                    });
-                }).catch(() => {
+            UpdateCategory(){
+                this.form.put(`/api/update-category/${this.$route.params.categoryid}`)
+                    .then(response => {
+                        console.log(response.data);
+                        this.$router.push('/category-list');
+                        Toast.fire({
+                            icon: 'success',
+                            title: this.form.cat_name +' category has been updated'
+                        });
+                    }).catch(() => {
 
                 });
             }
