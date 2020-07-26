@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 
 class PostsController extends Controller
@@ -20,9 +21,22 @@ class PostsController extends Controller
             'posts' => $posts
         ], 200);
     }
-
-    public function delete_post($id){
+    public function edit($id){
         $post = Post::findOrFail($id);
+
+        return response()->json([
+            'post' => $post
+        ]);
+    }
+    public function delete_post($id){
+        $post = Post::find($id);
+
+        $image_path = public_path().'/images/'.$post->photo;
+
+        if (file_exists($image_path)){
+            @unlink($image_path);
+        }
+
         $post->delete();
     }
 

@@ -41,7 +41,7 @@ const  routes = [
         name        : 'postcrete'
     },
     {
-        path        : '/post/edit',
+        path        : '/post/edit/:postId',
         component   : EditPost,
         name        : 'edit_post'
     },

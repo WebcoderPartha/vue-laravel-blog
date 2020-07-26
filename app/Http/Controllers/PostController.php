@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
 
@@ -124,6 +125,17 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+
+
+//    public function delete_post($id){
+//        $post = Post::find($id);
+//
+//        unlink(public_path().'/images/'.$post->photo);
+//        $post->delete();
+//
+//    }
+
     public function destroy($id)
     {
         //

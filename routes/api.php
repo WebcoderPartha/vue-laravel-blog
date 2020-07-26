@@ -19,5 +19,6 @@ Route::namespace('Api')->group(function(){
 
     Route::post('/savepost', 'PostsController@save_post');
     Route::delete('/post/{id}/delete', 'PostsController@delete_post');
+    Route::get('/posts/edit/{id}', 'PostsController@edit');
 });
 

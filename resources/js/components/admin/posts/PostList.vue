@@ -36,10 +36,10 @@
                                                     <td>{{ post.title | short(15, '') }}</td>
                                                     <td>{{ post.description | short(30, ' ..') }}</td>
                                                     <td>{{ post.category ? post.category.cat_name : 'Uncategoried' }}</td>
-                                                    <td><img :src="post.photo ? post.photo : 'http://via.placeholder.com/40x50' " height="50" alt=""></td>
+                                                    <td><img :src="post.photo ? postPhoto(post.photo) : 'http://via.placeholder.com/40x50' " height="50" alt=""></td>
                                                     <td>{{ post.created_at | timeFormat }}</td>
                                                     <td>{{ post.updated_at | timeFormat }}</td>
-                                                    <td><button class="btn btn-success"><i class="fa fa-edit"></i></button> | <button @click.prevent="postDelete(post.id)" class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
+                                                    <td><router-link :to="`/post/edit/${post.id}`" class="btn btn-success"><i class="fa fa-edit"></i></router-link> | <button @click.prevent="postDelete(post.id)" class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
                                                 </tr>
                                             </tbody>
                                             <tfoot>
@@ -86,10 +86,9 @@
         },
         methods: {
             // src path src="postPhoto(post.photo)"
-            // postPhoto(img){
-            //     return '/images/' + img;
-            // }
-
+            postPhoto(img){
+                return '/images/' + img;
+            },
             postDelete(id){
                 axios.delete('/api/post/'+id+'/delete')
                     .then(() => {

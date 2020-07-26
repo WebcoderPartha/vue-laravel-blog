@@ -21,7 +21,6 @@ export default {
         getAllPost(context){
             axios.get('/api/getposts')
                 .then(response => {
-                    console.log(response.data.posts)
                     context.commit('allPost', response.data.posts)
                 })
         }
