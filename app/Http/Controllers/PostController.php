@@ -6,6 +6,7 @@ use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+
 class PostController extends Controller
 {
     /**
@@ -19,14 +20,32 @@ class PostController extends Controller
         return $posts;
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function save_post(Request $request)
     {
-        //
+//        $data = [
+//            'title'         => $request->title,
+//            'description'   => $request->description,
+//            'photo'   => $request->photo,
+//            'cat_id'   => $request->cat_id
+//        ];
+//
+//        if ($file = $request->file('photo')){
+//            $filename = $file->getClientOriginalName();
+//            $path = public_path().'/images/';
+//            $file->move($path, $filename);
+//            $data['photo'] = $filename;
+//        }
+//
+//        Post::create($data);
+//        return response()->json(['message' => 'Successfully'], 200);
+        return 'bangla';
+
     }
 
     /**
@@ -37,7 +56,21 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if ($file = $request->file('photo')){
+            $name = $file->getClientOriginalName();
+            $directory = public_path().'/images/';
+            $file->move($directory,$name);
+            $request->photo = $name;
+        }
+        Post::create([
+            'title'         =>  $request->title,
+            'description'   =>  $request->description,
+            'cat_id'        =>  $request->cat_id,
+            'user_id'       =>  Auth::user()->id,
+            'photo'         => $request->photo
+
+        ]);
+
     }
 
     /**
@@ -59,7 +92,7 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**

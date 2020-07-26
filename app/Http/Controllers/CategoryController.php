@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -16,6 +17,8 @@ class CategoryController extends Controller
         $category->cat_name = $request->cat_name;
         $category->save();
         return ['message' => 'successfull'];
+
+
     }
 
 

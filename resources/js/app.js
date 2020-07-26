@@ -46,6 +46,13 @@ const store = new Vuex.Store(
     storeData
 );
 
+
+
+// CKEditor Support
+import CKEditor from '@ckeditor/ckeditor5-vue';
+Vue.use( CKEditor );
+
+
 // Support Moment JS Time Format
 import filter from './filter';
 

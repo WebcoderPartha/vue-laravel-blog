@@ -75,7 +75,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <router-link to="/post" class="nav-link">
+                                <router-link :to="{name:'posts'}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>All Post</p>
                                 </router-link>

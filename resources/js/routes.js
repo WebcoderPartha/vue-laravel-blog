@@ -1,21 +1,17 @@
 import VueRouter from "vue-router";
 import NotFoundPage from "./components/404";
 import AdminHome from "./components/admin/AdminHome";
-import ExampleComponent from "./components/ExampleComponent";
 import CategoryList from "./components/admin/category/List";
 import AddCategory from "./components/admin/category/New";
 import EditCategory from "./components/admin/category/Edit";
-
+import PostList from "./components/admin/posts/PostList";
+import EditPost from "./components/admin/posts/EditPost";
+import CreatePost from "./components/admin/posts/Create";
 
 const  routes = [
     {
         path        : '/home',
         component   : AdminHome
-    },
-    {
-        path        : '/post',
-        component   : ExampleComponent,
-        name        : 'posts'
     },
     {
         path        :  '/category-list',
@@ -33,6 +29,23 @@ const  routes = [
         component   : EditCategory,
         name        : 'edit_category'
     },
+    // Post
+    {
+        path        : '/posts/all',
+        component   : PostList,
+        name        : 'posts'
+    },
+    {
+        path        : '/posts/add-new-post',
+        component   : CreatePost,
+        name        : 'postcrete'
+    },
+    {
+        path        : '/post/edit',
+        component   : EditPost,
+        name        : 'edit_post'
+    },
+    // 404 Page
     {
         path        : '*',
         component   : NotFoundPage,

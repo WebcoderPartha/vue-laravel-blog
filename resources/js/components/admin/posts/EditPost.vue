@@ -1,13 +1,10 @@
 <template>
-    <div>
-        <router-view></router-view>
-    </div>
+    <h2>Ediit Post</h2>
 </template>
 
 <script>
-
     export default {
-        name: "AdminMaster"
+        name: "EditPost"
     }
 </script>
 
