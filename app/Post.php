@@ -22,5 +22,9 @@ class Post extends Model
         return $this->belongsTo(Category::class, 'cat_id');
     }
 
+    public $path = '/images/';
+    public function getPhotoAttribute($value){
+        return asset($this->path.$value);
+    }
 
 }

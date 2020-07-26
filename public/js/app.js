@@ -2904,7 +2904,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteCategory: function deleteCategory(id) {
       var _this = this;
 
-      axios.get('/api/category/delete/' + id).then(function () {
+      axios["delete"]('/api/category/delete/' + id).then(function () {
         _this.$store.dispatch('allCategory');
 
         Toast.fire({
@@ -3105,7 +3105,7 @@ __webpack_require__.r(__webpack_exports__);
       var file = event.target.files[0];
       console.log(file);
 
-      if (file.size > 6000) {
+      if (file.size > 123456) {
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
@@ -3239,6 +3239,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "PostList",
+  data: function data() {
+    return {};
+  },
   mounted: function mounted() {
     this.$store.dispatch('getAllPost');
   },
@@ -3247,7 +3250,24 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.getters.getPost;
     }
   },
-  methods: {}
+  methods: {
+    // src path src="postPhoto(post.photo)"
+    // postPhoto(img){
+    //     return '/images/' + img;
+    // }
+    postDelete: function postDelete(id) {
+      var _this = this;
+
+      axios["delete"]('/api/post/' + id + '/delete').then(function () {
+        _this.$store.dispatch('getAllPost');
+
+        Toast.fire({
+          icon: 'success',
+          title: 'Catetory has been deleted successfully'
+        });
+      })["catch"](function () {});
+    }
+  }
 });
 
 /***/ }),
@@ -82868,7 +82888,23 @@ var render = function() {
                                     )
                                   ]),
                                   _vm._v(" "),
-                                  _vm._m(1, true)
+                                  _c("td", [
+                                    _vm._m(1, true),
+                                    _vm._v(" | "),
+                                    _c(
+                                      "button",
+                                      {
+                                        staticClass: "btn btn-danger",
+                                        on: {
+                                          click: function($event) {
+                                            $event.preventDefault()
+                                            return _vm.postDelete(post.id)
+                                          }
+                                        }
+                                      },
+                                      [_c("i", { staticClass: "fa fa-trash" })]
+                                    )
+                                  ])
                                 ]
                               )
                             }),
@@ -82920,14 +82956,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("td", [
-      _c("button", { staticClass: "btn btn-success" }, [
-        _c("i", { staticClass: "fa fa-edit" })
-      ]),
-      _vm._v(" | "),
-      _c("button", { staticClass: "btn btn-danger" }, [
-        _c("i", { staticClass: "fa fa-trash" })
-      ])
+    return _c("button", { staticClass: "btn btn-success" }, [
+      _c("i", { staticClass: "fa fa-edit" })
     ])
   },
   function() {

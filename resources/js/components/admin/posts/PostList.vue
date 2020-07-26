@@ -39,7 +39,7 @@
                                                     <td><img :src="post.photo ? post.photo : 'http://via.placeholder.com/40x50' " height="50" alt=""></td>
                                                     <td>{{ post.created_at | timeFormat }}</td>
                                                     <td>{{ post.updated_at | timeFormat }}</td>
-                                                    <td><button class="btn btn-success"><i class="fa fa-edit"></i></button> | <button class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
+                                                    <td><button class="btn btn-success"><i class="fa fa-edit"></i></button> | <button @click.prevent="postDelete(post.id)" class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
                                                 </tr>
                                             </tbody>
                                             <tfoot>
@@ -71,6 +71,11 @@
 <script>
     export default {
         name: "PostList",
+        data(){
+          return {
+
+          }
+        },
         mounted() {
             this.$store.dispatch('getAllPost')
         },
@@ -80,7 +85,23 @@
             }
         },
         methods: {
+            // src path src="postPhoto(post.photo)"
+            // postPhoto(img){
+            //     return '/images/' + img;
+            // }
 
+            postDelete(id){
+                axios.delete('/api/post/'+id+'/delete')
+                    .then(() => {
+                        this.$store.dispatch('getAllPost')
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Catetory has been deleted successfully'
+                        });
+                    }).catch(() => {
+
+                })
+            }
         }
     }
 </script>

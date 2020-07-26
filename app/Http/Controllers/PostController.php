@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 
 
 class PostController extends Controller
@@ -56,20 +57,30 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        if ($file = $request->file('photo')){
-            $name = $file->getClientOriginalName();
-            $directory = public_path().'/images/';
-            $file->move($directory,$name);
-            $request->photo = $name;
-        }
-        Post::create([
-            'title'         =>  $request->title,
-            'description'   =>  $request->description,
-            'cat_id'        =>  $request->cat_id,
-            'user_id'       =>  Auth::user()->id,
-            'photo'         => $request->photo
+        $strpos = strpos($request->photo, ';');
+        $substr = substr($request->photo, 0, $strpos);
+        $explode = explode('/', $substr)[1];
+        $name = time().'.'.$explode;
+        $img = Image::make($request->photo)->resize(400, 600);
+        $upload_path = public_path().'/images/';
+        $img->save($upload_path.$name);
 
-        ]);
+
+        $post = new Post;
+        $post->title = $request->title;
+        $post->description = $request->description;
+        $post->cat_id = $request->cat_id;
+        $post->user_id = Auth::user()->id;
+        $post->photo = $name;
+        $post->save();
+//        Post::create([
+//            'title'         =>  $request->title,
+//            'description'   =>  $request->description,
+//            'cat_id'        =>  $request->cat_id,
+//            'user_id'       =>  Auth::user()->id,
+//            'photo'         => $name
+//
+//        ]);
 
     }
 

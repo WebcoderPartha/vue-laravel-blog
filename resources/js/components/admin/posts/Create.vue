@@ -95,7 +95,7 @@
             changePhoto(event){
                 let file = event.target.files[0];
                 console.log(file);
-                if (file.size > 6000){
+                if (file.size > 123456){
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',

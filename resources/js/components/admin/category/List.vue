@@ -70,7 +70,7 @@
         },
         methods:{
             deleteCategory(id){
-                axios.get('/api/category/delete/'+id)
+                axios.delete('/api/category/delete/'+id)
                     .then(() => {
                         this.$store.dispatch('allCategory');
                         Toast.fire({

@@ -11,12 +11,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::namespace('Api')->group(function(){
     Route::get('/category', 'CategoriesController@all_category');
-    Route::get('/category/delete/{id}', 'CategoriesController@deleteCategory');
+    Route::delete('/category/delete/{id}', 'CategoriesController@deleteCategory');
     Route::get('/edit-category/{id}', 'CategoriesController@EditCategory');
     Route::put('/update-category/{id}', 'CategoriesController@UpdateCategory');
 
     Route::get('/getposts', 'PostsController@getAllPostss');
 
     Route::post('/savepost', 'PostsController@save_post');
+    Route::delete('/post/{id}/delete', 'PostsController@delete_post');
 });
 
