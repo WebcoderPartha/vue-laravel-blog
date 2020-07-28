@@ -10,7 +10,7 @@ class CategoriesController extends Controller
 {
 
     public function all_category(){
-        $categories = Category::all();
+        $categories = Category::latest()->paginate(5);
         return response()->json([
             'categories' => $categories
         ], 200);
@@ -31,7 +31,14 @@ class CategoriesController extends Controller
         $update_category = Category::find($id);
         $update_category->cat_name = $request->cat_name;
         $update_category->save();
+    }
 
+    // Show edit post and Create post select option
+    public function globalcategory(){
+        $category = Category::all();
+        return response()->json([
+            'categorieses' => $category
+        ]);
     }
 
 }

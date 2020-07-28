@@ -74,14 +74,6 @@ class PostController extends Controller
         $post->user_id = Auth::user()->id;
         $post->photo = $name;
         $post->save();
-//        Post::create([
-//            'title'         =>  $request->title,
-//            'description'   =>  $request->description,
-//            'cat_id'        =>  $request->cat_id,
-//            'user_id'       =>  Auth::user()->id,
-//            'photo'         => $name
-//
-//        ]);
 
     }
 
@@ -116,7 +108,41 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Post::findOrFail($id);
+
+        // New image Upload and remove old image
+        if ($request->photo != $post->photo){
+            //new image request
+            $strpos = strpos($request->photo, ';');
+            $substr = substr($request->photo, 0, $strpos);
+            $explode = explode('/', $substr)[1];
+
+            $name = time().'.'.$explode;
+
+            $img = Image::make($request->photo)->resize(400, 600);
+            $upload_path = public_path().'/images/';
+            $image = $upload_path.$post->photo;
+            $img->save($upload_path.$name);
+
+            //remove old image
+            if (file_exists($image)){
+
+                unlink($image);
+            }
+
+        }else{
+            // update post same image
+            $name = $post->photo;
+
+        }
+
+        $post->title = $request->title;
+        $post->description = $request->description;
+        $post->cat_id = $request->cat_id;
+        $post->user_id = Auth::user()->id;
+        $post->photo = $name;
+        $post->save();
+
     }
 
     /**
@@ -128,13 +154,6 @@ class PostController extends Controller
 
 
 
-//    public function delete_post($id){
-//        $post = Post::find($id);
-//
-//        unlink(public_path().'/images/'.$post->photo);
-//        $post->delete();
-//
-//    }
 
     public function destroy($id)
     {

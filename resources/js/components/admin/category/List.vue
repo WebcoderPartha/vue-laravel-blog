@@ -24,11 +24,11 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr v-for="(category,index) in getAllCategory" :key="'category' + index">
+                                    <tr v-for="(category,index) in getAllCategory.data" :key="'category' + index">
                                         <td>{{ index+1 }}</td>
                                         <td>{{ category.cat_name }}</td>
                                         <td>{{ category.created_at | timeFormat }}</td>
-                                        <td>{{ category.updated_at | timeFormat}}</td>
+                                        <td>{{ category.updated_at | timeFormat }}</td>
                                         <td>
                                             <router-link :to="`/edit-category/${category.id}`" class="btn btn-success"><i class="fa fa-edit"></i></router-link>
                                             <button @click.prevent="deleteCategory(category.id)" class="btn btn-danger"><i class="fa fa-trash-alt"></i></button>
@@ -45,6 +45,18 @@
                                     </tr>
                                     </tfoot>
                                 </table>
+                               <div class="d-flex mt-3">
+                                   <div class="mx-auto">
+                                       <el-pagination
+                                           background
+                                           @current-change="handleCurrentChangePage"
+                                           :current-page.sync="currentPage"
+                                           :page-size="getAllCategory.per_page"
+                                           layout="prev, pager, next"
+                                           :total="getAllCategory.total">
+                                       </el-pagination>
+                                   </div>
+                               </div>
                             </div>
                             <!-- /.card-body -->
                         </div>
@@ -59,8 +71,13 @@
 <script>
     export default {
         name: "List",
+        data(){
+            return {
+                currentPage : 1
+            }
+        },
         mounted() {
-            this.$store.dispatch('allCategory');
+            this.$store.dispatch('allCategory', this.currentPage);
         },
         computed:{
             getAllCategory(){
@@ -69,6 +86,9 @@
             }
         },
         methods:{
+            handleCurrentChangePage(){
+                this.$store.dispatch('allCategory', this.currentPage);
+            },
             deleteCategory(id){
                 axios.delete('/api/category/delete/'+id)
                     .then(() => {

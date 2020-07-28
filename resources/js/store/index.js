@@ -1,27 +1,48 @@
 export default {
     state       : {
-        category: [],
-        post    : []
+        category    : [],
+        post        : [],
+        homeblog    : [],
+        lc_category : []
     },
     getters     :{
         getCategory(state){
-            return state.category;
+            return state.category
         },
         getPost(state){
             return state.post
+        },
+        getHomeBlog(state){
+            return state.homeblog
+        },
+        getlocalCategory(state){
+            return state.lc_category
         }
     },
-    actions     :{
-        allCategory(context){
-            axios.get('/api/category')
-                .then(response=>{
+    actions     : {
+        allCategory(context, payload){
+            axios.get('/api/category?page='+payload)
+                .then((response)=>{
                    context.commit('allCategories', response.data.categories);
                 })
         },
-        getAllPost(context){
-            axios.get('/api/getposts')
-                .then(response => {
+        LocalAllCategory(context){
+            axios.get('/api/local-category')
+                .then((response) => {
+                    context.commit('lcs_allctegory', response.data.categorieses)
+                })
+        },
+        getAllPost(context, payload){
+            axios.get('/api/getposts?page='+payload)
+                .then((response) => {
                     context.commit('allPost', response.data.posts)
+                })
+        },
+        getShowAllBlog(context, payload){
+            axios.get('/api/showblogpost?page='+payload)
+                .then((response) => {
+
+                    context.commit('homblogs', response.data.posts)
                 })
         }
     },
@@ -29,8 +50,14 @@ export default {
         allCategories(state, data){
             return state.category = data
         },
+        lcs_allctegory(state,data){
+            return state.lc_category = data
+        },
         allPost(state, data){
             return state.post = data
+        },
+        homblogs(state, data){
+            return state.homeblog = data
         }
     }
 }

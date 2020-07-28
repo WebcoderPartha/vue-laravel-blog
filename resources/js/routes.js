@@ -8,6 +8,11 @@ import PostList from "./components/admin/posts/PostList";
 import EditPost from "./components/admin/posts/EditPost";
 import CreatePost from "./components/admin/posts/Create";
 
+// Frontend Component Import
+import HomePage from "./components/public/PublicHome";
+import SinglePost from "./components/public/blog/SinglePost";
+import BlogPost from "./components/public/blog/BlogPost";
+
 const  routes = [
     {
         path        : '/home',
@@ -49,6 +54,18 @@ const  routes = [
     {
         path        : '*',
         component   : NotFoundPage,
+    },
+
+    // ***********************!|||| Frontend Routing ||||!*************************
+    {
+        path        : '/',
+        component   : HomePage,
+        name        : 'homepage'
+    },
+    {
+        path        : '/blog',
+        component   : BlogPost,
+        name        : 'blogpost'
     }
 ];
 

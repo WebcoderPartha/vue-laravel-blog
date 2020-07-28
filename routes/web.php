@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PublicController@index');
 
 Auth::routes();
 Route::get('/home', 'HomeController@index');
@@ -29,4 +27,7 @@ Route::get('/category', 'CategoryController@all_category');
 
 Route::post('/savepost', 'PostController@store');
 Route::delete('/post/{id}/delete', 'PostController@delete_post');
+
+Route::post('/post/update/{id}', 'PostController@update');
+Route::get('/showblogpost', 'PublicController@showAllPost');
 

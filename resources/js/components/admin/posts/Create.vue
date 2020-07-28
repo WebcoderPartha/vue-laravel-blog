@@ -45,11 +45,6 @@
                                 <div class="form-group">
                                     <label for="description">Description</label>
                                     <ckeditor :editor="editor" v-model="form.description"></ckeditor>
-<!--                                    <markdown-editor-->
-<!--                                                     name="description"-->
-<!--                                                     id="description"-->
-<!--                                                     :class="{ 'is-invalid': form.errors.has('description') }"-->
-<!--                                                     v-model="form.description"></markdown-editor>-->
                                     <has-error :form="form" field="description"></has-error>
                                 </div>
                             </div>
@@ -83,23 +78,23 @@
           }
         },
         mounted() {
-            this.$store.dispatch('allCategory');
+            this.$store.dispatch('LocalAllCategory');
         },
         computed:{
             getAllCategory(){
                 // return this.$store.getters.getCategory
-                return this.$store.getters.getCategory
+                return this.$store.getters.getlocalCategory
             }
         },
         methods: {
             changePhoto(event){
                 let file = event.target.files[0];
-                if (file.size > 323456){
+                if (file.size > 250000){
                     Swal.fire({
                         icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                        footer: '<a href>Why do I have this issue?</a>'
+                        title: 'Why do I have this issue?',
+                        text: 'Image file size must be less then 250kb!',
+                        footer: 'Try again :)'
                     })
                 } else{
                     let reader = new FileReader();
@@ -127,8 +122,8 @@
     }
 
 </script>
-<style scoped>
+<style>
     .ck-editor__editable_inline {
-        min-height: 500px !important;
+        min-height: 150px !important;
     }
 </style>

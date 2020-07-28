@@ -30,16 +30,16 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr role="row" class="odd" v-for="(post, index) in posts" :key="'post' + index">
+                                                <tr role="row" class="odd" v-for="(post, index) in posts.data" :key="'post' + index">
                                                     <td>{{ index+1 }}</td>
                                                     <td>{{ post.user ? post.user.name : 'No Name' }}</td>
                                                     <td>{{ post.title | short(15, '') }}</td>
                                                     <td>{{ post.description | short(30, ' ..') }}</td>
                                                     <td>{{ post.category ? post.category.cat_name : 'Uncategoried' }}</td>
-                                                    <td><img :src="post.photo ? postPhoto(post.photo) : 'http://via.placeholder.com/40x50' " height="50" alt=""></td>
+                                                    <td><img :src="post.photo ? postPhoto(post.photo) : 'http://via.placeholder.com/40x50' " height="100" width="70" alt=""></td>
                                                     <td>{{ post.created_at | timeFormat }}</td>
                                                     <td>{{ post.updated_at | timeFormat }}</td>
-                                                    <td><router-link :to="`/post/edit/${post.id}`" class="btn btn-success"><i class="fa fa-edit"></i></router-link> | <button @click.prevent="postDelete(post.id)" class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
+                                                    <td class="action"><router-link :to="`/post/edit/${post.id}`" class="btn btn-success"><i class="fa fa-edit"></i></router-link> | <button @click.prevent="postDelete(post.id)" class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
                                                 </tr>
                                             </tbody>
                                             <tfoot>
@@ -56,6 +56,18 @@
                                                 </tr>
                                             </tfoot>
                                         </table>
+                                        <div class="d-flex mt-3">
+                                            <div class="mx-auto">
+                                                <el-pagination
+                                                    background
+                                                    @current-change="handleCurrentPageChange"
+                                                    :current-page.sync="currentPage"
+                                                    :page-size="posts.per_page"
+                                                    layout="prev, pager, next"
+                                                    :total="posts.total">
+                                                </el-pagination>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -73,11 +85,11 @@
         name: "PostList",
         data(){
           return {
-
+              currentPage : 1
           }
         },
         mounted() {
-            this.$store.dispatch('getAllPost')
+            this.$store.dispatch('getAllPost', this.currentPage)
         },
         computed: {
             posts(){
@@ -100,11 +112,28 @@
                     }).catch(() => {
 
                 })
+            },
+            handleCurrentPageChange(){
+                this.$store.dispatch('getAllPost', this.currentPage)
             }
         }
     }
 </script>
 
 <style scoped>
-
+    a.btn.btn-success  {
+        padding: 2px 2px !important;
+        background:none !important;
+        border: none ;
+        color: lightblue !important;
+    }
+    button.btn.btn-danger {
+        padding: 2px 2px !important;
+        background:none !important;
+        border: none ;
+        color: red !important;
+    }
+    .action {
+        padding: 0;
+    }
 </style>

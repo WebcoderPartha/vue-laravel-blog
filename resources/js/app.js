@@ -31,6 +31,8 @@ window.Toast = Toast
 
 window.Vue = require('vue');
 Vue.component('admin-master', require('./components/admin/AdminMaster').default);
+Vue.component('HomeMain', require('./components/public/PublicMaster').default);
+Vue.component('pagination', require('laravel-vue-pagination'));
 Vue.use(VueRouter);
 Vue.use(Vuex)
 
@@ -52,6 +54,10 @@ const store = new Vuex.Store(
 import CKEditor from '@ckeditor/ckeditor5-vue';
 Vue.use( CKEditor );
 
+
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI);
 
 // Support Moment JS Time Format
 import filter from './filter';

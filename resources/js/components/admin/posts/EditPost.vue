@@ -5,11 +5,11 @@
                 <div class="col-md-6 m-auto">
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Add new post</h3>
+                            <h3 class="card-title">Edit Post</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form role="form" enctype="multipart/form-data" @submit.prevent="addNewPost">
+                        <form role="form" enctype="multipart/form-data" @submit.prevent="updatePost()">
                             <div class="card-body">
                                 <div class="form-group">
                                     <label for="title">Post Title</label>
@@ -51,7 +51,7 @@
                             <!-- /.card-body -->
 
                             <div class="card-footer">
-                                <button :disabled="form.busy" type="submit" class="btn btn-primary">Create</button>
+                                <button :disabled="form.busy" type="submit" class="btn btn-primary">Update</button>
                             </div>
                         </form>
                     </div>
@@ -64,7 +64,7 @@
     // CKEditor
     import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
     export default {
-        name: "Create",
+        name: "Editpost",
         data(){
             return {
                 editor: ClassicEditor,
@@ -78,7 +78,7 @@
             }
         },
         mounted() {
-            this.$store.dispatch('allCategory');
+            this.$store.dispatch('LocalAllCategory');
         },
         created() {
             axios.get(`/api/posts/edit/${this.$route.params.postId}`)
@@ -92,7 +92,7 @@
         computed:{
             getAllCategory(){
                 // return this.$store.getters.getCategory
-                return this.$store.getters.getCategory
+                return this.$store.getters.getlocalCategory
             }
         },
         methods: {
@@ -120,27 +120,27 @@
                 }else{
                     return `/images/${this.form.photo}`
                 }
+            },
+            updatePost(){
+                this.form.post(`/post/update/${this.$route.params.postId}`)
+                    .then(() => {
+                        this.$router.push('/posts/all');
+                        Toast.fire({
+                            icon: 'success',
+                            title: 'Post has been Updated successfully'
+                        });
+                    })
+                    .catch(() => {
+
+                    })
             }
-            // addNewPost(){
-            //     this.form.post('/savepost')
-            //         .then(() => {
-            //             this.$router.push('/posts/all');
-            //             Toast.fire({
-            //                 icon: 'success',
-            //                 title: 'Post has been created successfully'
-            //             });
-            //         })
-            //         .catch(() => {
-            //
-            //         })
-            // }
 
         }
     }
 
 </script>
-<style scoped>
+<style>
     .ck-editor__editable_inline {
-        min-height: 500px !important;
+        min-height: 150px !important;
     }
 </style>

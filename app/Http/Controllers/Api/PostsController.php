@@ -16,7 +16,7 @@ class PostsController extends Controller
         $posts = Post::with([
             'user',
             'category'
-        ])->orderBy('id', 'desc')->get();
+        ])->orderBy('id', 'desc')->paginate(5);
         return response()->json([
             'posts' => $posts
         ], 200);
