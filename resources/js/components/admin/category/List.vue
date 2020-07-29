@@ -91,11 +91,11 @@
             },
             deleteCategory(id){
                 axios.delete('/api/category/delete/'+id)
-                    .then(() => {
+                    .then((response) => {
                         this.$store.dispatch('allCategory');
                         Toast.fire({
                             icon: 'success',
-                            title: 'Catetory added successfully'
+                            title: response.data.category.cat_name + ' catetory deleted successfully'
                         });
                 })
             }

@@ -38,6 +38,10 @@ class PostsController extends Controller
         }
 
         $post->delete();
+
+        return response()->json([
+            'post' => $post
+        ], 200);
     }
 
 

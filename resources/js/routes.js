@@ -66,6 +66,11 @@ const  routes = [
         path        : '/blog',
         component   : BlogPost,
         name        : 'blogpost'
+    },
+    {
+        path        : '/blog/:id',
+        component   : SinglePost,
+        name        : 'singlepost'
     }
 ];
 

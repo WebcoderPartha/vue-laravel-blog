@@ -3,6 +3,7 @@ export default {
         category    : [],
         post        : [],
         homeblog    : [],
+        singlepost  : [],
         lc_category : []
     },
     getters     :{
@@ -14,6 +15,9 @@ export default {
         },
         getHomeBlog(state){
             return state.homeblog
+        },
+        getSinglePost(state){
+          return state.singlepost
         },
         getlocalCategory(state){
             return state.lc_category
@@ -44,6 +48,12 @@ export default {
 
                     context.commit('homblogs', response.data.posts)
                 })
+        },
+        getSinglePost(context,payload){
+            axios.get('/api/showpost/'+payload).then((response) => {
+                console.log(response.data)
+                context.commit('showsinglespost', response.data.post)
+            })
         }
     },
     mutations   : {
@@ -58,6 +68,9 @@ export default {
         },
         homblogs(state, data){
             return state.homeblog = data
+        },
+        showsinglespost(state, data){
+            return state.singlepost = data
         }
     }
 }

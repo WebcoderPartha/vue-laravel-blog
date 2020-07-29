@@ -23,5 +23,10 @@ Route::namespace('Api')->group(function(){
     Route::get('/posts/edit/{id}', 'PostsController@edit');
     Route::get('/getposts', 'PostsController@getAllPostss');
 });
-Route::get('/showblogpost', 'PublicController@showAllPost');
 
+//post for public
+Route::get('/showblogpost', 'PublicController@showAllPost');
+Route::get('/showpost/{id}', 'PublicController@show');
+
+//category for public
+Route::get('/categories/{id}', 'PublicController@categoriesPost');

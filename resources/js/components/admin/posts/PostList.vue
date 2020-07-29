@@ -103,11 +103,11 @@
             },
             postDelete(id){
                 axios.delete('/api/post/'+id+'/delete')
-                    .then(() => {
+                    .then((response) => {
                         this.$store.dispatch('getAllPost')
                         Toast.fire({
                             icon: 'success',
-                            title: 'Catetory has been deleted successfully'
+                            title: response.data.post.title + ' has been deleted successfully'
                         });
                     }).catch(() => {
 

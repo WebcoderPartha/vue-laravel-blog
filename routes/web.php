@@ -26,7 +26,7 @@ Route::get('/category', 'CategoryController@all_category');
 
 
 Route::post('/savepost', 'PostController@store');
-Route::delete('/post/{id}/delete', 'PostController@delete_post');
+//Route::delete('/post/{id}/delete', 'PostController@delete_post');
 
 Route::post('/post/update/{id}', 'PostController@update');
 Route::get('/showblogpost', 'PublicController@showAllPost');

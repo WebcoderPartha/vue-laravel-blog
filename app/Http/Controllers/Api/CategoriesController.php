@@ -19,6 +19,9 @@ class CategoriesController extends Controller
     public function deleteCategory($id){
         $category = Category::findOrFail($id);
         $category->delete();
+        return  response()->json([
+            'category' =>$category
+        ], 200);
     }
     public function EditCategory($id){
         $category = Category::findOrFail($id);
@@ -38,7 +41,7 @@ class CategoriesController extends Controller
         $category = Category::all();
         return response()->json([
             'categorieses' => $category
-        ]);
+        ], 200);
     }
 
 }
