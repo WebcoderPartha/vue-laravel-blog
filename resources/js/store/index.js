@@ -7,6 +7,7 @@ export default {
         lc_category         : [],
         sidebar_category    : [],
         sidebar_post        : [],
+        categorypost        : []
     },
     getters     :{
         getCategory(state){
@@ -18,7 +19,7 @@ export default {
         getHomeBlog(state){
             return state.homeblog
         },
-        getSinglePost(state){
+        getSinglesPost(state){
           return state.singlepost
         },
         getlocalCategory(state){
@@ -30,6 +31,9 @@ export default {
         },
         getSidebarPost : state => {
             return state.sidebar_post
+        },
+        getCategorybypost : state => {
+            return state.categorypost
         }
     },
     actions     : {
@@ -73,8 +77,13 @@ export default {
         getSidebarPosts : context => {
             axios.get('/api/getsidebarpost')
                 .then((response) => {
-                    console.log(response.data.posts)
                     context.commit('getsidebarposts', response.data.posts)
+                })
+        },
+        getCategoryidByPost(context, payload){
+            axios.get('/api/categories/'+payload)
+                .then((response) => {
+                    context.commit('CategoryidByPost', response.data.category_post)
                 })
         }
     },
@@ -99,6 +108,9 @@ export default {
         },
         getsidebarposts(state, data){
             return state.sidebar_post = data
+        },
+        CategoryidByPost(state, data){
+            return state.categorypost = data
         }
     }
 }

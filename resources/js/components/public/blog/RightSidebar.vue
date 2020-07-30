@@ -1,5 +1,6 @@
 <template>
-    <div class="span4">
+   <span class="sidebar">
+        <div class="span4">
         <aside class="right-sidebar">
             <div class="widget">
                 <form class="form-search">
@@ -10,7 +11,13 @@
             <div class="widget">
                 <h5 class="widgetheading">Categories</h5>
                 <ul class="cat">
-                    <li v-for="(category, index) in getcategories"><i class="icon-angle-right"></i><a href="#">{{category.cat_name}}</a><span> ({{category.posts_count}})</span></li>
+                    <li
+                        v-for="(category, index) in getcategories"
+                    >
+                        <i class="icon-angle-right"></i>
+                        <router-link :to="`/blog/category/${category.id}`">{{category.cat_name}}</router-link>
+                        <span> ({{category.posts_count}})</span>
+                    </li>
                 </ul>
             </div>
             <div class="widget">
@@ -20,7 +27,7 @@
                         <img :src="postimg(post.photo)" class="pull-left" alt="" width="40px" height="40px" />
                         <h6><router-link :to="`/blog/${post.id}`">{{post.title}}</router-link></h6>
                         <p>{{post.description}}</p>
-                    </li>s
+                    </li>
                 </ul>
             </div>
             <div class="widget">
@@ -36,6 +43,7 @@
             </div>
         </aside>
     </div>
+   </span>
 </template>
 
 <script>

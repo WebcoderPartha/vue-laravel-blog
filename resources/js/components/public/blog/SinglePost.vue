@@ -63,12 +63,17 @@
         },
         computed:{
             singlePost(){
-               return this.$store.getters.getSinglePost
+               return this.$store.getters.getSinglesPost
             }
         },
         methods:{
             postImg(img){
                 return '/images/'+img
+            }
+        },
+        watch:{
+            $route(){
+                this.$store.dispatch('getSinglePost', this.$route.params.postId)
             }
         }
     }

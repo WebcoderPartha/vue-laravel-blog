@@ -12,6 +12,7 @@ import CreatePost from "./components/admin/posts/Create";
 import HomePage from "./components/public/PublicHome";
 import SinglePost from "./components/public/blog/SinglePost";
 import BlogPost from "./components/public/blog/BlogPost";
+import CategoryPost from "./components/public/CategoryPost";
 
 const  routes = [
     {
@@ -71,6 +72,11 @@ const  routes = [
         path        : '/blog/:postId',
         component   : SinglePost,
         name        : 'singlepost'
+    },
+    {
+        path        : '/blog/category/:id',
+        component   : CategoryPost,
+        name        : 'categorypost'
     }
 ];
 

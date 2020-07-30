@@ -20,18 +20,13 @@ class PublicController extends Controller
     }
 
     public function show($id){
-        $post = Post::with('user', 'category')->findOrFail($id);
+        $post = Post::with('user', 'category')->where('id', $id)->first();
         return response()->json([
             'post' => $post
         ],200);
     }
 
-    public function categoriesPost($id){
-        $category_post = Category::with('posts')->findOrFail($id);
-        return response()->json([
-            'category_post' => $category_post
-        ],200);
-    }
+
 
     public function categories(){
         $categories = Category::withCount('posts')->get();
@@ -45,6 +40,11 @@ class PublicController extends Controller
             'posts' => $posts
         ], 200);
     }
-
+    public function categoriesPost($id){
+        $category_post = Category::with('posts')->where('id', $id)->first();
+        return response()->json([
+            'category_post' => $category_post
+        ],200);
+    }
 
 }
