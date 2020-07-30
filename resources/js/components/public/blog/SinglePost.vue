@@ -59,7 +59,7 @@
             RightSidebar
         },
         mounted(){
-            this.$store.dispatch('getSinglePost', this.$route.params.id)
+            this.$store.dispatch('getSinglePost', this.$route.params.postId)
         },
         computed:{
             singlePost(){

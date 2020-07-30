@@ -68,7 +68,7 @@ const  routes = [
         name        : 'blogpost'
     },
     {
-        path        : '/blog/:id',
+        path        : '/blog/:postId',
         component   : SinglePost,
         name        : 'singlepost'
     }

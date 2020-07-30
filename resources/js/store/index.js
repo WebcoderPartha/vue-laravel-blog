@@ -1,10 +1,12 @@
 export default {
     state       : {
-        category    : [],
-        post        : [],
-        homeblog    : [],
-        singlepost  : [],
-        lc_category : []
+        category            : [],
+        post                : [],
+        homeblog            : [],
+        singlepost          : [],
+        lc_category         : [],
+        sidebar_category    : [],
+        sidebar_post        : [],
     },
     getters     :{
         getCategory(state){
@@ -21,6 +23,13 @@ export default {
         },
         getlocalCategory(state){
             return state.lc_category
+        },
+        // ES6 Format
+        getSidebarCategory : state => {
+            return state.sidebar_category
+        },
+        getSidebarPost : state => {
+            return state.sidebar_post
         }
     },
     actions     : {
@@ -50,10 +59,23 @@ export default {
                 })
         },
         getSinglePost(context,payload){
-            axios.get('/api/showpost/'+payload).then((response) => {
-                console.log(response.data)
+            axios.get('/api/showpost/'+payload)
+                .then((response) => {
                 context.commit('showsinglespost', response.data.post)
             })
+        },
+        getSidebarCategory : context =>{
+            axios.get('/api/getcategory')
+                .then((response) => {
+                context.commit('getsidebar', response.data.categories)
+            })
+        },
+        getSidebarPosts : context => {
+            axios.get('/api/getsidebarpost')
+                .then((response) => {
+                    console.log(response.data.posts)
+                    context.commit('getsidebarposts', response.data.posts)
+                })
         }
     },
     mutations   : {
@@ -71,6 +93,12 @@ export default {
         },
         showsinglespost(state, data){
             return state.singlepost = data
+        },
+        getsidebar(state, data){
+            return state.sidebar_category = data
+        },
+        getsidebarposts(state, data){
+            return state.sidebar_post = data
         }
     }
 }

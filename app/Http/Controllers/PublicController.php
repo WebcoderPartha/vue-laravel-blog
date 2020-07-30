@@ -33,5 +33,18 @@ class PublicController extends Controller
         ],200);
     }
 
+    public function categories(){
+        $categories = Category::withCount('posts')->get();
+        return response()->json([
+            'categories' => $categories
+        ], 200);
+    }
+    public function sidebarpost(){
+        $posts = Post::all();
+        return response()->json([
+            'posts' => $posts
+        ], 200);
+    }
+
 
 }

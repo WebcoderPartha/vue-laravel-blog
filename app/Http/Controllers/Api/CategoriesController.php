@@ -44,4 +44,6 @@ class CategoriesController extends Controller
         ], 200);
     }
 
+
+
 }
