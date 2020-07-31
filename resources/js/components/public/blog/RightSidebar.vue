@@ -4,8 +4,8 @@
         <aside class="right-sidebar">
             <div class="widget">
                 <form class="form-search">
-                    <input placeholder="Type something" type="text" class="input-medium search-query">
-                    <button type="submit" class="btn btn-square btn-theme">Search</button>
+                    <input placeholder="Type something" @keyup="RealSearch" type="text" v-model="keyword" class="input-medium search-query">
+                    <button type="submit" @click.prevent="RealSearch" class="btn btn-square btn-theme">Search</button>
                 </form>
             </div>
             <div class="widget">
@@ -50,7 +50,7 @@
     export default {
         data(){
             return {
-
+                keyword : ''
             }
         },
         mounted() {
@@ -68,6 +68,9 @@
         methods:{
             postimg(img){
                 return '/images/'+img
+            },
+            RealSearch(){
+                this.$store.dispatch('SearchPost', this.keyword)
             }
         }
     }

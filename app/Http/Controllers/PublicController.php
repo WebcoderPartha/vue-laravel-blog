@@ -41,10 +41,18 @@ class PublicController extends Controller
         ], 200);
     }
     public function categoriesPost($id){
-        $category_post = Category::with('posts')->where('id', $id)->first();
+        $category_post = Post::with('user', 'category')->where('cat_id', $id)->get();
         return response()->json([
             'category_post' => $category_post
         ],200);
+    }
+
+    public function search_post(){
+        $search = \Request::get('s');
+        $posts = Post::with('user', 'category')->where('title', 'LIKE', "%$search%")->orWhere('description', 'LIKE', "%$search%")->paginate(5);
+        return response()->json([
+            'posts' => $posts
+        ], 200);
     }
 
 }

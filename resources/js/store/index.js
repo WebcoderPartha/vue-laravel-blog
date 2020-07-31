@@ -85,6 +85,12 @@ export default {
                 .then((response) => {
                     context.commit('CategoryidByPost', response.data.category_post)
                 })
+        },
+        SearchPost(context, payload){
+            axios.get('/api/search?s='+payload)
+                .then((response) => {
+                    context.commit('getSearchPost', response.data.posts)
+                })
         }
     },
     mutations   : {
@@ -111,6 +117,9 @@ export default {
         },
         CategoryidByPost(state, data){
             return state.categorypost = data
+        },
+        getSearchPost(state, data){
+            return state.homeblog = data
         }
     }
 }

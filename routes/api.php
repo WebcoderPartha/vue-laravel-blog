@@ -32,3 +32,4 @@ Route::get('/showpost/{id}', 'PublicController@show');
 Route::get('/categories/{id}', 'PublicController@categoriesPost');
 Route::get('/getcategory', 'PublicController@categories');
 Route::get('/getsidebarpost', 'PublicController@sidebarpost');
+Route::get('/search', 'PublicController@search_post');
