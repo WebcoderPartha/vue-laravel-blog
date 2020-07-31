@@ -47,6 +47,7 @@
 </template>
 
 <script>
+    import _ from 'lodash';
     export default {
         data(){
             return {
@@ -69,9 +70,9 @@
             postimg(img){
                 return '/images/'+img
             },
-            RealSearch(){
+            RealSearch:_.debounce(function (){
                 this.$store.dispatch('SearchPost', this.keyword)
-            }
+            }, 1000)
         }
     }
 </script>
