@@ -15,35 +15,38 @@
                             <div class="card-body">
                                 <table id="example1" class="table table-bordered table-striped">
                                     <thead>
-                                    <tr>
-                                        <th>SL</th>
-                                        <th>Category Name</th>
-                                        <th>Created At</th>
-                                        <th>Updated At</th>
-                                        <th>Action</th>
-                                    </tr>
+                                        <tr>
+                                            <th width="10">
+                                                    <select name="" class="mb-1" @change="deleteSelected" v-model="select">
+                                                        <option value="">Select</option>
+                                                        <option value="">Delete All</option>
+                                                    </select><br>
+                                                <input type="checkbox" @click="selectAll()" v-model="allSelect" >
+                                                <span v-if="allSelect == false">Check All</span>
+                                                <span v-else>Uncheck All</span>
+                                            </th>
+                                            <th>SL</th>
+                                            <th>Category Name</th>
+                                            <th>Created At</th>
+                                            <th>Updated At</th>
+                                            <th>Action</th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    <tr v-for="(category,index) in getAllCategory.data" :key="'category' + index">
-                                        <td>{{ index+1 }}</td>
-                                        <td>{{ category.cat_name }}</td>
-                                        <td>{{ category.created_at | timeFormat }}</td>
-                                        <td>{{ category.updated_at | timeFormat }}</td>
-                                        <td>
-                                            <router-link :to="`/edit-category/${category.id}`" class="btn btn-success"><i class="fa fa-edit"></i></router-link>
-                                            <button @click.prevent="deleteCategory(category.id)" class="btn btn-danger"><i class="fa fa-trash-alt"></i></button>
-                                        </td>
-                                    </tr>
+                                        <tr v-for="(category,index) in getAllCategory.data" :key="'category' + index">
+                                            <td>
+                                                <input type="checkbox" v-model="categoryItem" :value="category.id">
+                                            </td>
+                                            <td>{{ index+1 }}</td>
+                                            <td>{{ category.cat_name }}</td>
+                                            <td>{{ category.created_at | timeFormat }}</td>
+                                            <td>{{ category.updated_at | timeFormat }}</td>
+                                            <td>
+                                                <router-link :to="`/edit-category/${category.id}`" class="btn btn-success"><i class="fa fa-edit"></i></router-link>
+                                                <button @click.prevent="deleteCategory(category.id)" class="btn btn-danger"><i class="fa fa-trash-alt"></i></button>
+                                            </td>
+                                        </tr>
                                     </tbody>
-                                    <tfoot>
-                                    <tr>
-                                        <th>SL</th>
-                                        <th>Category Name</th>
-                                        <th>Created At</th>
-                                        <th>Updated At</th>
-                                        <th>Action</th>
-                                    </tr>
-                                    </tfoot>
                                 </table>
                                <div class="d-flex mt-3">
                                    <div class="mx-auto">
@@ -74,7 +77,9 @@
         data(){
             return {
                 currentPage : 1,
-                keyword : ''
+                categoryItem: [],
+                select      : '',
+                allSelect   : false
             }
         },
         mounted() {
@@ -99,6 +104,29 @@
                             title: response.data.category.cat_name + ' catetory deleted successfully'
                         });
                 })
+            },
+            deleteSelected(){
+                axios.delete('/api/category_delete/' + this.categoryItem)
+                    .then(() => {
+                        this.categoryItem = []
+                        this.$store.dispatch('allCategory');
+                        Toast.fire({
+                            icon: 'success',
+                            title: ' catetory deleted successfully'
+                        });
+                    })
+            },
+            selectAll(){
+                if(this.allSelect == false){
+                    this.allSelect = true
+                    for (var category in this.getAllCategory.data){
+                        this.categoryItem.push(this.getAllCategory.data[category].id)
+                    }
+                }else{
+                    this.allSelect = false
+                    this.categoryItem = []
+                }
+
             }
         }
     }

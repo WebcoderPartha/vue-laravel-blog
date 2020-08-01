@@ -16,6 +16,7 @@ Route::namespace('Api')->group(function(){
     Route::get('/edit-category/{id}', 'CategoriesController@EditCategory');
     Route::put('/update-category/{id}', 'CategoriesController@UpdateCategory');
     Route::get('/local-category', 'CategoriesController@globalcategory');
+    Route::delete('/category_delete/{id}', 'CategoriesController@category_delete');
 
 
     Route::post('/savepost', 'PostsController@save_post');

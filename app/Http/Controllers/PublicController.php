@@ -49,6 +49,8 @@ class PublicController extends Controller
 
     public function search_post(){
         $search = \Request::get('s');
+
+        // search korar por search keyword kete dile sob post dekhabe tai if( ) use kora hoise
         if ($search != null){
             $posts = Post::with('user', 'category')->where('title', 'LIKE', "%$search%")->orWhere('description', 'LIKE', "%$search%")->paginate(5);
             return response()->json([
@@ -57,7 +59,7 @@ class PublicController extends Controller
         }else{
             return $this->showAllPost();
         }
-
     }
+
 
 }
